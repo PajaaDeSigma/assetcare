@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AssetCare AI — Inventaris &amp; Perawatan Aset IT</title>
+
+  <!-- Chart.js dari CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+  <!-- Stylesheet aplikasi -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+<div id="shell">
+  <!-- Overlay backdrop (mobile) -->
+  <div class="sidebar-backdrop" id="backdrop" aria-hidden="true" role="presentation"></div>
+
+  <!-- ===== SIDEBAR ===== -->
+  <nav id="sidebar" aria-label="Navigasi utama">
+    <div class="sidebar-logo">
+      <h1>AssetCare AI</h1>
+      <span>Inventaris &amp; Perawatan Aset IT</span>
+    </div>
+    <div class="sidebar-nav" role="list">
+      <div class="nav-group-label">Umum</div>
+      <a href="#landing"    class="nav-link" role="listitem"><span class="icon">&#9679;</span> Beranda</a>
+      <a href="#dashboard"  class="nav-link" role="listitem"><span class="icon">&#9679;</span> Dashboard</a>
+      <div class="nav-group-label">Aset</div>
+      <a href="#inventaris" class="nav-link" role="listitem"><span class="icon">&#9679;</span> Inventaris</a>
+      <a href="#jadwal"     class="nav-link" role="listitem"><span class="icon">&#9679;</span> Jadwal Perawatan</a>
+      <a href="#pengingat"  class="nav-link" role="listitem"><span class="icon">&#9679;</span> Pengingat</a>
+      <div class="nav-group-label">Manajemen</div>
+      <a href="#laporan"    class="nav-link" role="listitem"><span class="icon">&#9679;</span> Laporan Manajer</a>
+    </div>
+    <div class="sidebar-footer">
+      <div>Peran: <strong id="role-label">Admin Aset</strong></div>
+      <select id="role-select" aria-label="Ganti peran" style="margin-top:6px;width:100%;padding:4px 6px;border-radius:4px;border:1px solid var(--clr-border);background:var(--clr-bg);color:var(--clr-text);font-size:.8rem;">
+        <option value="admin">Admin Aset</option>
+        <option value="teknisi">Teknisi Perawatan</option>
+        <option value="manajer">Manajer IT</option>
+      </select>
+    </div>
+  </nav>
+
+  <!-- ===== TOPBAR ===== -->
+  <header id="topbar" role="banner">
+    <button class="btn-icon" id="toggle-sidebar" aria-label="Buka/tutup sidebar" aria-expanded="false">&#9776;</button>
+    <h2 id="page-title">Beranda</h2>
+    <button class="btn-icon" id="toggle-theme" aria-label="Ganti tema terang/gelap" title="Ganti tema">&#9790;</button>
+  </header>
+
+  <!-- ===== KONTEN UTAMA ===== -->
+  <main id="main-content" role="main">
+
+    <!-- ==========================================
+         HALAMAN 1: LANDING
+    =========================================== -->
+    <section class="page active" id="page-landing" aria-label="Beranda">
+      <div class="hero" role="banner">
+        <h1>AssetCare AI</h1>
+        <p>Kelola aset IT organisasi Anda dengan cerdas &mdash; inventaris terpusat, jadwal perawatan otomatis, dan analisis risiko berbasis AI.</p>
+        <button class="btn-hero" onclick="navigate('dashboard')">Mulai Pantau Aset &rarr;</button>
+      </div>
+
+      <!-- Masalah yang diselesaikan -->
+      <div class="section">
+        <h2 class="section-title">Masalah yang Kami Selesaikan</h2>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <div class="emoji" aria-hidden="true">&mdash;</div>
+            <h3>Data Tersebar</h3>
+            <p>Aset dicatat di banyak spreadsheet yang tidak sinkron dan sulit ditelusuri.</p>
+          </div>
+          <div class="problem-card">
+            <div class="emoji" aria-hidden="true">&mdash;</div>
+            <h3>Rusak Baru Dirawat</h3>
+            <p>Perawatan reaktif, bukan proaktif &mdash; biaya perbaikan jauh lebih tinggi dari pencegahan.</p>
+          </div>
+          <div class="problem-card">
+            <div class="emoji" aria-hidden="true">&mdash;</div>
+            <h3>Garansi Terlewat</h3>
+            <p>Garansi dan lisensi kedaluwarsa tanpa diketahui, mengakibatkan biaya tak terduga.</p>
+          </div>
+          <div class="problem-card">
+            <div class="emoji" aria-hidden="true">&mdash;</div>
+            <h3>Riwayat Hilang</h3>
+            <p>Riwayat perbaikan tidak terdokumentasi, mempersulit analisis dan keputusan.</p>
+          </div>
+          <div class="problem-card">
+            <div class="emoji" aria-hidden="true">&mdash;</div>
+            <h3>Anggaran Tanpa Data</h3>
+            <p>Pengadaan diputuskan tanpa dasar data kondisi aset yang akurat.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cara kerja -->
+      <div class="section">
+        <h2 class="section-title">Cara Kerja AssetCare AI</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <h3>Catat Aset</h3>
+            <p>Input manual via form atau ketik deskripsi bebas &mdash; agen AI otomatis normalisasi data.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <h3>Analisis Risiko</h3>
+            <p>Setiap aset dinilai berdasarkan umur, frekuensi perbaikan, dan kondisi garansi.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <h3>Jadwalkan Perawatan</h3>
+            <p>Teknisi mendapat daftar tugas terurut, pengingat otomatis dikirim 60 hari sebelum kedaluwarsa.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <h3>Laporan &amp; Keputusan</h3>
+            <p>Manajer mendapat ringkasan risiko dan usulan penggantian aset berbasis data.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fitur -->
+      <div class="section">
+        <h2 class="section-title">Fitur Utama</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3>Agen AI Normalisasi</h3>
+            <p>Tempel teks berantakan, agen ekstrak dan seragamkan semua field secara otomatis.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Skor Risiko Real-time</h3>
+            <p>Setiap aset dinilai 0&ndash;100 dengan alasan dan rekomendasi tindakan yang jelas.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Penjadwalan Cerdas</h3>
+            <p>Jadwal perawatan berdasarkan pedoman dan riwayat, dikelompokkan per lokasi.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Pengingat Kedaluwarsa</h3>
+            <p>Notifikasi garansi dan lisensi yang berakhir dalam 60 hari ke depan.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Inventaris Terpusat</h3>
+            <p>Cari, filter, dan urut aset berdasarkan kategori, status, risiko, dan lokasi.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Laporan Manajer</h3>
+            <p>Ringkasan kondisi, daftar aset berisiko, dan usulan penggantian siap cetak.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Untuk siapa -->
+      <div class="section">
+        <h2 class="section-title">Untuk Siapa?</h2>
+        <div class="persona-grid">
+          <div class="persona-card">
+            <div class="avatar" aria-hidden="true">A</div>
+            <h3>Admin Aset</h3>
+            <p>Catat, perbarui, dan kelola data aset dengan mudah dari satu tempat.</p>
+          </div>
+          <div class="persona-card">
+            <div class="avatar" aria-hidden="true">T</div>
+            <h3>Teknisi Perawatan</h3>
+            <p>Lihat jadwal tugas, tandai selesai, dan catat hasil perbaikan.</p>
+          </div>
+          <div class="persona-card">
+            <div class="avatar" aria-hidden="true">M</div>
+            <h3>Manajer IT</h3>
+            <p>Pantau risiko keseluruhan dan buat keputusan pengadaan berbasis data.</p>
+          </div>
+        </div>
+      </div>
+
+      <footer class="landing-footer">
+        <p>&copy; 2025 AssetCare AI &middot; Semua data contoh adalah fiktif &middot; Dibuat untuk tim IT Indonesia</p>
+      </footer>
+    </section>
+
+    <!-- ==========================================
+         HALAMAN 2: DASHBOARD RINGKASAN
+    =========================================== -->
+    <section class="page" id="page-dashboard" aria-label="Dashboard Ringkasan">
+      <div class="stat-cards" id="stat-cards"></div>
+      <div class="charts-row">
+        <div class="chart-card">
+          <h3>Aset per Kategori</h3>
+          <canvas id="chart-kategori" height="220" aria-label="Grafik aset per kategori" role="img"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Tren Perawatan (6 Bulan Terakhir)</h3>
+          <canvas id="chart-trend" height="220" aria-label="Grafik tren perawatan" role="img"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Aset Berisiko Tinggi &amp; Kritis</h3>
+        <div id="dashboard-risk-table"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         HALAMAN 3: INVENTARIS
+    =========================================== -->
+    <section class="page" id="page-inventaris" aria-label="Inventaris Aset">
+      <div class="toolbar">
+        <input type="search" id="inv-search" placeholder="Cari nama, merek, no. seri..." aria-label="Cari aset" />
+        <select id="inv-filter-kategori" aria-label="Filter kategori">
+          <option value="">Semua Kategori</option>
+          <option>Komputer</option>
+          <option>Server</option>
+          <option>Jaringan</option>
+          <option>Periferal</option>
+          <option>Lisensi Perangkat Lunak</option>
+          <option>Lainnya</option>
+        </select>
+        <select id="inv-filter-status" aria-label="Filter status">
+          <option value="">Semua Status</option>
+          <option>Aktif</option>
+          <option>Cadangan</option>
+          <option>Diperbaiki</option>
+          <option>Dihapus</option>
+        </select>
+        <select id="inv-filter-risiko" aria-label="Filter risiko">
+          <option value="">Semua Risiko</option>
+          <option>Rendah</option>
+          <option>Sedang</option>
+          <option>Tinggi</option>
+          <option>Kritis</option>
+        </select>
+        <button class="btn btn-primary" id="btn-tambah-aset" aria-label="Tambah aset baru">+ Tambah Aset</button>
+      </div>
+      <div class="table-wrap" role="region" aria-label="Tabel inventaris aset">
+        <table aria-label="Daftar aset">
+          <thead>
+            <tr>
+              <th data-sort="nama"     tabindex="0" aria-sort="none">Nama &#9652;&#9662;</th>
+              <th data-sort="kategori" tabindex="0" aria-sort="none">Kategori &#9652;&#9662;</th>
+              <th data-sort="merek"    tabindex="0" aria-sort="none">Merek/Model &#9652;&#9662;</th>
+              <th data-sort="lokasi"   tabindex="0" aria-sort="none">Lokasi &#9652;&#9662;</th>
+              <th data-sort="status"   tabindex="0" aria-sort="none">Status &#9652;&#9662;</th>
+              <th data-sort="risiko"   tabindex="0" aria-sort="none">Risiko &#9652;&#9662;</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="inv-tbody"></tbody>
+        </table>
+        <div class="pagination" id="inv-pagination"></div>
+      </div>
+
+      <!-- Tambah via teks bebas (Agen AI) -->
+      <div class="ai-box" aria-label="Tambah aset dengan teks bebas">
+        <h3>Tambah Aset dengan Teks Bebas (Agen AI)</h3>
+        <p class="text-muted mb-4">Ketik atau tempel deskripsi aset dalam format apapun. Agen akan mengekstrak dan menormalisasi data secara otomatis.</p>
+        <textarea id="ai-input" rows="4" placeholder="Contoh: Laptop Dell Latitude 5420 SN:DL54209X dibeli Jan 2022, garansi s/d Jan 2025, dipakai Budi di Lantai 3, sudah diperbaiki 2 kali..." aria-label="Teks bebas untuk agen AI"></textarea>
+        <div style="margin-top:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <button class="btn btn-primary" id="btn-proses-ai" aria-label="Proses teks dengan agen AI">Proses dengan AI &rarr;</button>
+          <span class="ai-loading" id="ai-loading" aria-live="polite">Agen sedang memproses...</span>
+        </div>
+        <div class="ai-result" id="ai-result" aria-live="polite" role="status"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         HALAMAN 4: DETAIL ASET
+    =========================================== -->
+    <section class="page" id="page-detail" aria-label="Detail Aset">
+      <div style="margin-bottom:14px;">
+        <button class="btn btn-secondary btn-sm" onclick="history.back()" aria-label="Kembali ke inventaris">&larr; Kembali</button>
+      </div>
+      <div class="detail-grid">
+        <div>
+          <div class="card" id="detail-spec">
+            <h3>Spesifikasi Aset</h3>
+            <table class="spec-table"><tbody id="detail-spec-body"></tbody></table>
+          </div>
+          <div class="card">
+            <h3>Riwayat Perawatan</h3>
+            <ul class="timeline" id="detail-timeline"></ul>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h3>Skor Risiko AI</h3>
+            <div class="risk-score" id="detail-risk-score">&mdash;</div>
+            <div class="risk-label" id="detail-risk-label">&mdash;</div>
+            <hr class="divider">
+            <div class="risk-reason" id="detail-risk-reason"></div>
+            <div class="recommendation" id="detail-recommendation"></div>
+          </div>
+          <div class="card">
+            <h3>Pemegang &amp; Lokasi</h3>
+            <table class="spec-table"><tbody id="detail-holder"></tbody></table>
+          </div>
+          <div class="card">
+            <h3>Garansi &amp; Lisensi</h3>
+            <table class="spec-table"><tbody id="detail-warranty"></tbody></table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         HALAMAN 5: JADWAL PERAWATAN
+    =========================================== -->
+    <section class="page" id="page-jadwal" aria-label="Jadwal Perawatan">
+      <div class="toolbar">
+        <select id="sch-filter" aria-label="Filter jadwal">
+          <option value="">Semua</option>
+          <option value="overdue">Terlambat</option>
+          <option value="upcoming">Akan Datang (30 hari)</option>
+          <option value="ok">Mendatang</option>
+        </select>
+        <span class="text-muted" id="sch-count"></span>
+      </div>
+      <ul class="schedule-list" id="schedule-list" role="list" aria-label="Daftar jadwal perawatan"></ul>
+    </section>
+
+    <!-- ==========================================
+         HALAMAN 6: PENGINGAT
+    =========================================== -->
+    <section class="page" id="page-pengingat" aria-label="Pengingat Kedaluwarsa">
+      <div class="card" style="margin-bottom:20px;">
+        <h3>Garansi &amp; Lisensi Berakhir dalam 60 Hari</h3>
+        <div id="reminder-list" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         HALAMAN 7: LAPORAN MANAJER
+    =========================================== -->
+    <section class="page" id="page-laporan" aria-label="Laporan Manajer IT">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+        <button class="btn btn-primary" onclick="window.print()" aria-label="Cetak laporan">Cetak Laporan</button>
+      </div>
+      <div id="report-content"></div>
+    </section>
+
+  </main><!-- /main-content -->
+</div><!-- /shell -->
+
+<!-- ===== MODAL: FORM ASET ===== -->
+<div class="modal-overlay hidden" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Tambah Aset</h3>
+      <button class="btn-icon" id="modal-close" aria-label="Tutup form">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <form id="asset-form" novalidate>
+        <input type="hidden" id="form-id" />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-nama">Nama Aset *</label>
+            <input type="text" id="form-nama" required placeholder="Laptop Dell Latitude 5420" />
+          </div>
+          <div class="form-group">
+            <label for="form-kategori">Kategori *</label>
+            <select id="form-kategori" required>
+              <option value="">Pilih...</option>
+              <option>Komputer</option>
+              <option>Server</option>
+              <option>Jaringan</option>
+              <option>Periferal</option>
+              <option>Lisensi Perangkat Lunak</option>
+              <option>Lainnya</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-merek">Merek / Model</label>
+            <input type="text" id="form-merek" placeholder="Dell Latitude 5420" />
+          </div>
+          <div class="form-group">
+            <label for="form-seri">No. Seri</label>
+            <input type="text" id="form-seri" placeholder="DL54209X" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-tgl-beli">Tanggal Beli</label>
+            <input type="date" id="form-tgl-beli" />
+          </div>
+          <div class="form-group">
+            <label for="form-akhir-garansi">Akhir Garansi</label>
+            <input type="date" id="form-akhir-garansi" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-lokasi">Lokasi</label>
+            <input type="text" id="form-lokasi" placeholder="Lantai 3 - Ruang Server" />
+          </div>
+          <div class="form-group">
+            <label for="form-pemegang">Pemegang</label>
+            <input type="text" id="form-pemegang" placeholder="Nama karyawan / divisi" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-status">Status</label>
+            <select id="form-status">
+              <option>Aktif</option>
+              <option>Cadangan</option>
+              <option>Diperbaiki</option>
+              <option>Dihapus</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="form-perbaikan">Jumlah Perbaikan</label>
+            <input type="number" id="form-perbaikan" min="0" value="0" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="form-catatan">Catatan</label>
+          <textarea id="form-catatan" rows="2" placeholder="Catatan tambahan..."></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="modal-cancel">Batal</button>
+      <button class="btn btn-primary" id="modal-save">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: TANDAI SELESAI ===== -->
+<div class="modal-overlay hidden" id="modal-done-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-done-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-done-title">Tandai Perawatan Selesai</h3>
+      <button class="btn-icon" id="modal-done-close" aria-label="Tutup">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="done-asset-id" />
+      <div class="form-group">
+        <label for="done-catatan">Catatan Perawatan</label>
+        <textarea id="done-catatan" rows="3" placeholder="Deskripsikan tindakan yang dilakukan..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="modal-done-cancel">Batal</button>
+      <button class="btn btn-success" id="modal-done-save">Konfirmasi Selesai</button>
+    </div>
+  </div>
+</div>
+
+<!-- Logika aplikasi -->
+<script src="app.js"></script>
+</body>
+</html>
